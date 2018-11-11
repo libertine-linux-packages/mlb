@@ -35,7 +35,7 @@ case "$package" in
 
 		libertine_compile_build_mlb()
 		{
-			_libertine_compile_mlb_internal "$(libertine_public_outputBuildSysrootPath)" false
+			_libertine_compile_mlb_internal "$(libertine_public_outputBuildSysrootPath)" false "$libertine_build"-cc "$(libertine_public_buildCCompilerFlags)"
 		}
 	
 	;;
@@ -50,7 +50,7 @@ case "$package" in
 				
 		libertine_compile_mlb()
 		{
-			_libertine_compile_mlb_internal "$(libertine_public_outputHostSysrootPath)" true
+			_libertine_compile_mlb_internal "$(libertine_public_outputHostSysrootPath)" true "$libertine_host"-cc "$(libertine_public_hostCCompilerFlags)"
 		}
 	;;
 	
@@ -62,6 +62,8 @@ _libertine_compile_mlb_internal()
 {
 	local destinationSysrootPath="$1"
 	local isForInitramfsSysroot="$2"
+	local cCompiler="$3"
+	local cFlags="$4"
 	
 	local outputBinFolderPath="$destinationSysrootPath"/usr/bin
 	mkdir -m 0755 -p "$outputBinFolderPath"
@@ -70,7 +72,7 @@ _libertine_compile_mlb_internal()
 	
 		sed -i -e 's/gcc/$(CC) $(CFLAGS)/g' Makefile
 		
-		libertine_public_make CC="$libertine_build"-cc CFLAGS="$(libertine_public_buildCCompilerFlags)"
+		libertine_public_make CC="$cCompiler" CFLAGS="$cFlags"
 		
 	popd
 	
