@@ -1,3 +1,5 @@
 [submodule "upstream"]
 	path = upstream
-	url = https://github.com/wiktor-b/mlb
+	url = https://github.com/libertine-linux-clones/mlb.git
+	branch = master
+	libertine-linux-upstream = https://github.com/wiktor-b/mlb
